@@ -2,15 +2,15 @@
 Module.register("MMM-iFrame", {
   defaults: {
     url: "https://example.com",                    // required: full URL to embed
-    width: "100%",              // css value; e.g. "100%", "800px"
-    height: "100%",             // css value
-    refreshInterval: 0,         // ms; 0 = never
-    cacheBuster: true,          // append timestamp query param when reloading
-    sandbox: "",                // iframe sandbox attribute, e.g. "allow-scripts allow-same-origin"
-    allow: "",                  // iframe "allow" attribute, e.g. "camera; microphone; geolocation"
-    showLoading: true,          // show spinner while loading first time
-    backgroundColor: "transparent",
-    wrapperClass: "",           // extra class on wrapper
+    width: "100%",                                 // css value; e.g. "100%", "800px"
+    height: "100%",                                // css value
+    refreshInterval: 0,                            // ms; 0 = never
+    cacheBuster: true,                             // append timestamp query param when reloading
+    sandbox: "",                                   // iframe sandbox attribute, e.g. "allow-scripts allow-same-origin"
+    allow: "",                                     // iframe "allow" attribute, e.g. "camera; microphone; geolocation"
+    showLoading: true,                             // show spinner while loading first time
+    backgroundColor: "transparent",                // background color of wrapper element
+    wrapperClass: "",                              // extra class on wrapper
   },
 
   start: function () {
@@ -58,7 +58,7 @@ Module.register("MMM-iFrame", {
     this.iframe.setAttribute("frameborder", "0");
     this.iframe.setAttribute("allowfullscreen", "true");
 
-    if (this.config.sandbox !== null && this.config.sandbox !== undefined) {
+    if (this.config.sandbox) {
       this.iframe.setAttribute("sandbox", this.config.sandbox);
     }
     if (this.config.allow) {
