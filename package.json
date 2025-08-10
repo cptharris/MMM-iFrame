@@ -1,0 +1,21 @@
+{
+  "name": "MMM-iFrame",
+  "version": "1.0.0",
+  "description": "MagicMirror module to embed an iframe",
+  "main": "MMM-iFrame.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cptharris/mmm-iframe.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "iframe",
+    "embed"
+  ],
+  "author": "cptharris",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cptharris/mmm-iframe/issues"
+  },
+  "homepage": "https://github.com/cptharris/mmm-iframe#readme"
+}
