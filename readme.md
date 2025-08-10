@@ -60,25 +60,27 @@ Configuration with all options:
         refreshInterval: 0,
         cacheBuster: true,
         sandbox: "allow-scripts allow-same-origin",
-        allow: "geolocation; microphone; camera"
+        allow: "geolocation; microphone; camera",
+        unloadOnHide: false
       }
     }
 ```
 
 ### Configuration options
 
-| Option            | Possible values | Default               | Description                                                                            |
-| ----------------- | --------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| `url`             | `string`        | `https://example.com` | The url to embed on the page                                                           |
-| `width`           | `int`           | `100%`                | The width of the iframe                                                                |
-| `height`          | `int`           | `100%`                | The height of the iframe                                                               |
-| `refreshInterval` | `int`           | `0`                   | Time in ms to refresh, 0 or less means never                                           |
-| `cacheBuster`     | `bool`          | `true`                | append timestamp query when reloading to get around caching                            |
-| `sandbox`         | `string`        | empty                 | sandboxing options, [read here](https://www.w3schools.com/TAGS/att_iframe_sandbox.asp) |
-| `allow`           | `string`        | empty                 | feature policy for iframe                                                              |
-| `showLoading`     | `bool`          | `true`                  | displays a spinner when loading                                                        |
-| `backgroundColor` | `Color`         | `transparent`           | background color of the iframe                                                         |
-| `wrapperClass`    | `string`        | empty                 | extra class to add on the wrapper                                                      |
+| Option            | Possible values | Default               | Description                                                                                                                                                                                         |
+| ----------------- | --------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`             | `string`        | `https://example.com` | The url to embed on the page                                                                                                                                                                        |
+| `width`           | `int`           | `100%`                | The width of the iframe                                                                                                                                                                             |
+| `height`          | `int`           | `100%`                | The height of the iframe                                                                                                                                                                            |
+| `refreshInterval` | `int`           | `0`                   | Time in ms to refresh, 0 or less means never                                                                                                                                                        |
+| `cacheBuster`     | `bool`          | `true`                | append timestamp query when reloading to get around caching                                                                                                                                         |
+| `sandbox`         | `string`        | empty                 | sandboxing options, [read here](https://www.w3schools.com/TAGS/att_iframe_sandbox.asp)                                                                                                              |
+| `allow`           | `string`        | empty                 | feature policy for iframe                                                                                                                                                                           |
+| `showLoading`     | `bool`          | `true`                | displays a spinner when loading                                                                                                                                                                     |
+| `backgroundColor` | `Color`         | `transparent`         | background color of the iframe                                                                                                                                                                      |
+| `wrapperClass`    | `string`        | empty                 | extra class to add on the wrapper                                                                                                                                                                   |
+| `unloadOnHide`    | `bool`          | `false`               | If `true`, the module will set the iframe `src` to `about:blank` when hidden (e.g., by MMM-Carousel or when `suspend()` is called) and restore it on `resume()`. Saves CPU/network for heavy pages. |
 
 
 ## Sending notifications to the module
@@ -86,6 +88,7 @@ Configuration with all options:
 | Notification         | Description                                                        |
 | -------------------- | ------------------------------------------------------------------ |
 | `MMM-iFrame-SET-URL` | Payload must contain the url that needs to be shown on this module |
+|                      | Also send the instanceID of the module to update                   |
 
 <!-- ## Developer commands
 

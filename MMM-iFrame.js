@@ -11,6 +11,7 @@ Module.register("MMM-iFrame", {
     showLoading: true,                             // show spinner while loading first time
     backgroundColor: "transparent",                // background color of wrapper element
     wrapperClass: "",                              // extra class on wrapper
+    unloadOnHide: false                            // whether to unload the iframe when it is hidden (may save CPU)
   },
 
   start: function () {
@@ -105,10 +106,10 @@ Module.register("MMM-iFrame", {
 
   notificationReceived: function (notification, payload, sender) {
     // optional: allow dynamic URL update via notification
-    if (notification === "MMM-iFrame-SET-URL" && typeof payload === "string") {
-      this.config.url = payload;
+    if (notification === "MMM-iFrame-SET-URL" && typeof payload === "string" && payload.target === this.config.instanceID) {
+      this.config.url = payload.url;
       if (this.iframe) {
-        this.iframe.src = this._buildSrc(payload, this.config.cacheBuster);
+        this.iframe.src = this._buildSrc(payload.url, this.config.cacheBuster);
       } else {
         this.updateDom();
       }
@@ -121,12 +122,29 @@ Module.register("MMM-iFrame", {
 
   // clean up on module stop
   suspend: function () {
-    if (this.refreshTimer) clearInterval(this.refreshTimer);
+    // stop refresh timer if present
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = null;
+    }
+
+    // optionally unload iframe to save CPU/network when hidden
+    if (this.config.unloadOnHide && this.iframe && this.iframe.src && this.iframe.src !== "about:blank") {
+      this._savedSrc = this.iframe.src;
+      this.iframe.src = "about:blank";
+    }
   },
 
   resume: function () {
+    // (re)start the refresh timer if configured and not already running
     if (this.config.refreshInterval && !this.refreshTimer) {
-      this.refreshTimer = setInterval(() => this.reloadiFrame(), this.config.refreshInterval);
+      this.refreshTimer = setInterval(() => this.reloadIframe(), this.config.refreshInterval);
+    }
+
+    // restore iframe src if we unloaded it on suspend
+    if (this.config.unloadOnHide && this.iframe && this._savedSrc) {
+      this.iframe.src = this._savedSrc;
+      this._savedSrc = null;
     }
   }
 });
