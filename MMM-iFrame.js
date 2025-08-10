@@ -86,6 +86,36 @@ Module.register("MMM-iFrame", {
     this.iframe.style.display = "block";
 
     wrapper.appendChild(this.iframe);
+
+    // Save wrapper reference
+    this.wrapper = wrapper;
+
+    // IntersectionObserver logic
+    if (this._io) {
+      // Disconnect any previous observer
+      this._io.disconnect();
+      this._io = null;
+    }
+    // Only observe if wrapper is connected to DOM
+    // Use a microtask to ensure wrapper is attached
+    setTimeout(() => {
+      if (!this.wrapper || !this.wrapper.isConnected) return;
+      // Create observer with 1% threshold
+      this._io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.intersectionRatio >= 0.01) {
+              if (typeof this.resume === "function") this.resume();
+            } else {
+              if (typeof this.suspend === "function") this.suspend();
+            }
+          });
+        },
+        { threshold: 0.01 }
+      );
+      this._io.observe(this.wrapper);
+    }, 0);
+
     return wrapper;
   },
 
