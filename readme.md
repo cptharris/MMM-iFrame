@@ -13,7 +13,7 @@
 In your terminal, go to the modules directory and clone the repository:
 
 ```bash
-cd ~/MagicMirror/modules # navigate to modules folder
+cd ~/MagicMirror/modules # navigate to modules directory
 git clone https://github.com/cptharris/MMM-iFrame # clone repository
 ```
 
@@ -22,8 +22,8 @@ git clone https://github.com/cptharris/MMM-iFrame # clone repository
 Go to the module directory and pull the latest changes:
 
 ```bash
-cd ~/MagicMirror/modules/MMM-iFrame
-git pull
+cd ~/MagicMirror/modules/MMM-iFrame # navigate to MMM-iFrame module directory
+git pull # pull changes from GitHub
 ```
 
 ## Caveats
@@ -76,8 +76,8 @@ Configuration with all options:
 | `cacheBuster`     | `bool`          | `true`                | append timestamp query when reloading to get around caching                            |
 | `sandbox`         | `string`        | empty                 | sandboxing options, [read here](https://www.w3schools.com/TAGS/att_iframe_sandbox.asp) |
 | `allow`           | `string`        | empty                 | feature policy for iframe                                                              |
-| `showLoading`     | `bool`          | true                  | displays a spinner when loading                                                        |
-| `backgroundColor` | `Color`         | transparent           | background color of the iframe                                                         |
+| `showLoading`     | `bool`          | `true`                  | displays a spinner when loading                                                        |
+| `backgroundColor` | `Color`         | `transparent`           | background color of the iframe                                                         |
 | `wrapperClass`    | `string`        | empty                 | extra class to add on the wrapper                                                      |
 
 
